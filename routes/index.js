@@ -15,9 +15,8 @@ function asyncHandler(cb) {
 //NoRoute for error handling
 router.get(
   "/noroute",
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     const err = new Error();
-    err.message = "Custom 500 error thrown";
     err.status = 500;
     next(err);
   })
@@ -111,7 +110,7 @@ router.post(
     }
   })
 );
-
+//GET route for deletion page
 router.get(
   "/books/:id/delete",
   asyncHandler(async (req, res) => {
@@ -148,7 +147,8 @@ router.use((err, req, res, next) => {
   } else {
     err.message = "Sorry! There was an unexpected error on the server.";
     console.log(err.message);
-    return res.status(err.status || 500).render("error", { err });
+    res.status(err.status);
+    return res.render("error", { err });
   }
 });
 

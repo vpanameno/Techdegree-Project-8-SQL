@@ -1,10 +1,9 @@
-
-extends layout
+extends layout.pug
 
 block content
   h1= "Books"
   p Welcome to Valerie's Library!
-
+  div
   form(action="/books/new", method="get")
     input(type='submit', value="Create New Book")
 
