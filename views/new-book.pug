@@ -1,0 +1,31 @@
+extends layout.pug
+
+block content
+  h1= "New Book"
+
+  if errors
+      h1.error Oops!
+      each error in errors
+          p.error=error.message
+
+
+  form(action="/books/new", method="post")
+    div
+      label(for="title") Title:
+      input(type="text", name="title" value=book.title)
+    br
+    div
+      label(for="author") Author:
+      input(type="text", name="author" value=book.author)
+    br
+    div
+      label(for="genre") Genre:
+      input(type="text", name="genre" value=book.genre)
+    br
+    div
+      label(for="year")  Year:
+      input(type="text", name="year" value=book.year)
+    br
+    div
+      input(type="submit", name='new book' value="New Book")
+      a(href="/books", class="button") Cancel
