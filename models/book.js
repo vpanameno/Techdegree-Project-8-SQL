@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
             msg: 'Please provide a value for "author"'
           },
           notEmpty: {
+            //Will not allow for user to submit if the input is empty
             msg: 'Please provide a value for "author"'
           }
         }

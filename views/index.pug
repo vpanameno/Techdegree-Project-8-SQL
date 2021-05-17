@@ -1,12 +1,14 @@
 extends layout.pug
 
 block content
-  h1= "Books"
+  h1= title
+
   p Welcome to Valerie's Library!
   div
-  form(action="/books/new", method="get")
-    input(type='submit', value="Create New Book")
+  a(href="/books/new", class="button") Create New Book
+  br
 
+  br
   table(style="width:50%")
     tr
       th Title

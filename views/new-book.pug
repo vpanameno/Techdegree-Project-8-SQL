@@ -1,7 +1,7 @@
 extends layout.pug
 
 block content
-  h1= "New Book"
+  h1= title
 
   if errors
       h1.error Oops!
@@ -12,20 +12,22 @@ block content
   form(action="/books/new", method="post")
     div
       label(for="title") Title:
-      input(type="text", name="title" value=book.title)
+      input(id="title", type="text", name="title" value=book.title)
     br
     div
       label(for="author") Author:
-      input(type="text", name="author" value=book.author)
+      input(id="author", type="text", name="author" value=book.author)
     br
     div
       label(for="genre") Genre:
-      input(type="text", name="genre" value=book.genre)
+      input(id="genre", type="text", name="genre" value=book.genre)
     br
     div
       label(for="year")  Year:
-      input(type="text", name="year" value=book.year)
+      input(id="year", type="text", name="year" value=book.year)
     br
     div
-      input(type="submit", name='new book' value="New Book")
+      input(type="submit", name='new book' value="Create New Book")
+    br
+    div
       a(href="/books", class="button") Cancel

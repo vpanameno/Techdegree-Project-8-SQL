@@ -12,12 +12,22 @@ function asyncHandler(cb) {
     }
   };
 }
-//NoRoute for error handling
+//error route for error handling (500 errors)
+router.get(
+  "/error",
+  asyncHandler(async (req, res, next) => {
+    const err = new Error();
+    err.status = 500;
+    next(err);
+  })
+);
+
+//NoRoute for error handling (404 errors)
 router.get(
   "/noroute",
   asyncHandler(async (req, res, next) => {
     const err = new Error();
-    err.status = 500;
+    err.status = 404;
     next(err);
   })
 );
@@ -31,8 +41,8 @@ router.get("/", async (req, res) => {
 router.get(
   "/books",
   asyncHandler(async (req, res) => {
-    const books = await Book.findAll({ order: [["createdAt", "DESC"]] });
-    res.render("index", { books, title: "book.title" });
+    const books = await Book.findAll({ order: [["createdAt", "ASC"]] });
+    res.render("index", { books, title: "Books" });
   })
 );
 
@@ -91,8 +101,6 @@ router.post(
       if (book) {
         await book.update(req.body);
         res.redirect("/books");
-      } else {
-        res.sendStatus(404);
       }
     } catch (error) {
       if (error.name === "SequelizeValidationError") {
@@ -101,7 +109,7 @@ router.post(
         res.render("update-book", {
           book,
           errors: error.errors,
-          title: "Edit " + book.title,
+          title: "Update Book",
           id: book.id
         });
       } else {
